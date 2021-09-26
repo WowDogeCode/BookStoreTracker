@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Entities.Concrete
 {
-    public class Account
+    public class Account : IEntity
     {
         [Key]
         public int AccountId { get; set; }
