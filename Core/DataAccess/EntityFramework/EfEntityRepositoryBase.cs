@@ -9,11 +9,13 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class EfEntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
+    public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> 
+        where TEntity : class, IEntity, new()
+        where TContext : DbContext, new()
     {
         public void Add(TEntity entity)
         {
-            using (BookStoreTrackerDBContext context = new BookStoreTrackerDBContext())
+            using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
@@ -22,7 +24,7 @@ namespace DataAccess.Concrete
         }
         public void Delete(TEntity entity)
         {
-            using (BookStoreTrackerDBContext context = new BookStoreTrackerDBContext())
+            using (TContext context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
@@ -31,7 +33,7 @@ namespace DataAccess.Concrete
         }
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> expression = null)
         {
-            using (BookStoreTrackerDBContext context = new BookStoreTrackerDBContext())
+            using (TContext context = new TContext())
             {
                 return expression == null
                     ? context.Set<TEntity>().ToList()
@@ -40,7 +42,7 @@ namespace DataAccess.Concrete
         }
         public TEntity GetById(Expression<Func<TEntity, bool>> expression)
         {
-            using (BookStoreTrackerDBContext context = new BookStoreTrackerDBContext())
+            using (TContext context = new TContext())
             {
                 try
                 {
@@ -54,7 +56,7 @@ namespace DataAccess.Concrete
         }
         public void Update(TEntity entity)
         {
-            using (BookStoreTrackerDBContext context = new BookStoreTrackerDBContext())
+            using (TContext context = new TContext())
             {
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
