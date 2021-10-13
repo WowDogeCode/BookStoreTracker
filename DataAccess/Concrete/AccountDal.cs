@@ -9,5 +9,5 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class AccountDal : EfEntityRepositoryBase<Account>, IAccountDal { }
+    public class AccountDal : EfEntityRepositoryBase<Account, BookStoreTrackerDBContext>, IAccountDal { }
 }

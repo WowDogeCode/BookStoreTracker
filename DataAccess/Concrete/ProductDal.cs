@@ -7,5 +7,5 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class ProductDal : EfEntityRepositoryBase<Product>, IProductDal { }
+    public class ProductDal : EfEntityRepositoryBase<Product, BookStoreTrackerDBContext>, IProductDal { }
 }

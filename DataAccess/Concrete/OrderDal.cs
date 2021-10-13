@@ -7,5 +7,5 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class OrderDal : EfEntityRepositoryBase<Order>, IOrderDal {  }
+    public class OrderDal : EfEntityRepositoryBase<Order, BookStoreTrackerDBContext>, IOrderDal {  }
 }

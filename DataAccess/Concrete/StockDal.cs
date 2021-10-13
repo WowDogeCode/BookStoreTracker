@@ -6,5 +6,5 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class StockDal : EfEntityRepositoryBase<Stock>, IStockDal { }
+    public class StockDal : EfEntityRepositoryBase<Stock, BookStoreTrackerDBContext>, IStockDal { }
 }
