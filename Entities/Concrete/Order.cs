@@ -12,5 +12,8 @@ namespace Entities.Concrete
         public int OrderId { get; set; }
         [Required]
         public int AccountId { get; set; }
+        [Required]
+        public int ProductId { get; set; }
+        public DateTime OrderDate { get; set; }
     }
 }
