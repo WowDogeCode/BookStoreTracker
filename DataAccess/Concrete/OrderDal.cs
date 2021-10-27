@@ -24,7 +24,7 @@ namespace DataAccess.Concrete
                              {
                                  OrderDate = order.OrderDate,
                                  ProductName = product.ProductName,
-                                 UserName = account.UserName
+                                 MailAdress = account.MailAdress
                              };
 
                 return result.ToList();

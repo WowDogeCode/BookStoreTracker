@@ -7,7 +7,7 @@ namespace Entities.DTOs
 {
     public class OrderDetailDto : IDto
     {
-        public string UserName { get; set; }
+        public string MailAdress { get; set; }
         public string ProductName { get; set; }
         public DateTime OrderDate { get; set; }
     }

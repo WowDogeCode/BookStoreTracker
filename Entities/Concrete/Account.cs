@@ -11,7 +11,7 @@ namespace Entities.Concrete
         [Key]
         public int AccountId { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public string MailAdress { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
