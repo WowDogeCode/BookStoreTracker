@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,9 +14,18 @@ namespace Business.Concrete
     public class OrderManager : IOrderManager
     {
         IOrderDal _orderDal = new OrderDal();
-        public void Add(Order t)
+        OrderValidator _orderValidator = new OrderValidator();
+        public void Add(Order order)
         {
-            _orderDal.Add(t);
+            var validationResult = _orderValidator.Validate(order);
+            if (_orderValidator.Validate(order).IsValid)
+            {
+                _orderDal.Add(order);
+            }
+            else
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
         }
         public void Delete(Order t)
         {
@@ -24,9 +35,17 @@ namespace Business.Concrete
         {
             return _orderDal.GetAll();
         }
-        public void Update(Order t)
+        public void Update(Order order)
         {
-            _orderDal.Update(t);
+            var validationResult = _orderValidator.Validate(order);
+            if (_orderValidator.Validate(order).IsValid)
+            {
+                _orderDal.Update(order);
+            }
+            else
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
         }
         public List<OrderDetailDto> GetOrderDetails()
         {

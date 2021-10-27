@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,9 +13,18 @@ namespace Business.Concrete
     public class AccountManager : IAccountManager
     {
         IAccountDal _accountDal = new AccountDal();
-        public void Add(Account t)
+        AccountValidator _accountValidator = new AccountValidator();
+        public void Add(Account account)
         {
-            _accountDal.Add(t);
+            var validationResult = _accountValidator.Validate(account);
+            if (_accountValidator.Validate(account).IsValid)
+            {
+                _accountDal.Add(account);
+            }
+            else
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
         }
         public void Delete(Account t)
         {
@@ -23,11 +34,17 @@ namespace Business.Concrete
         {
             return _accountDal.GetAll();
         }
-        public void Update(Account t)
+        public void Update(Account account)
         {
-            _accountDal.Update(t);
+            var validationResult = _accountValidator.Validate(account);
+            if (_accountValidator.Validate(account).IsValid)
+            {
+                _accountDal.Update(account);
+            }
+            else
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
         }
     }
-
-    //TODO : Add business rules. .
 }
